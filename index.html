@@ -202,52 +202,7 @@ margin-top:40px;
     border-radius:15px;
     box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
-/* Mobile Navbar */
-@media (max-width:768px){
 
-    .navbar{
-        height:60px;
-        padding:0 12px;
-    }
-
-    .logo img{
-        width:35px;
-        height:35px;
-    }
-
-    .logo span{
-        display:none;      /* Hide long logo text on mobile */
-    }
-
-    .navbar ul{
-        display:flex;
-        flex-direction:row;   /* Keep items horizontal */
-        align-items:center;
-        gap:15px;
-        list-style:none;
-
-        flex-wrap:nowrap;     /* Prevent wrapping */
-        overflow-x:auto;      /* Allow horizontal scroll if needed */
-
-        white-space:nowrap;
-        scrollbar-width:none;
-        -ms-overflow-style:none;
-    }
-
-    .navbar ul::-webkit-scrollbar{
-        display:none;
-    }
-
-    .navbar ul li{
-        flex:none;
-    }
-
-    .navbar ul li a{
-        font-size:14px;
-        padding:5px;
-    }
-
-}
 /* ---------- Mobile Responsive ---------- */
 @media screen and (max-width:768px){
 
@@ -682,83 +637,122 @@ transform:translateX(-1560px);
 .gallery:hover .track {
   animation-play-state:running;
 }
-/* ================= NAVBAR ================= */
+/*==========================
+    PREMIUM NAVBAR
+==========================*/
+
 .navbar{
     position:fixed;
     top:15px;
     left:50%;
     transform:translateX(-50%);
-
     width:95%;
-    max-width:1350px;
+    max-width:1300px;
     height:70px;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    padding:0 35px;
+    padding:0 30px;
 
     background:rgba(0,0,0,.45);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    backdrop-filter:blur(20px);
 
+    border-radius:20px;
     border:1px solid rgba(255,255,255,.15);
-    border-radius:18px;
 
     z-index:9999;
+}
 
-    transition:.4s;
-} 
 .logo{
-display:flex;
-align-items:center;
-gap:12px;
-color:#fff;
-font-size:24px;
-font-weight:700;
-white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#fff;
+    font-size:22px;
+    font-weight:bold;
 }
 
 .logo img{
-width:50px;
-height:50px;
-object-fit:contain;
+    width:45px;
 }
 
-.navbar ul{
-display:flex;
-list-style:none;
-gap:35px;
+.nav-links{
+    display:flex;
+    list-style:none;
+    gap:35px;
 }
 
-.navbar ul li a{
-color:#fff;
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-position:relative;
+.nav-links a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
 }
 
-.navbar ul li a::after{
-content:'';
-position:absolute;
-left:0;
-bottom:-6px;
-width:0%;
-height:3px;
-background:#ff6b00;
-transition:.4s;
+.nav-links a:hover{
+    color:#ff6b00;
 }
 
-.navbar ul li a:hover::after{
-width:100%;
+.menu-btn{
+    display:none;
+    color:#fff;
+    font-size:30px;
+    cursor:pointer;
 }
 
-.navbar ul li a:hover{
-color:#ff6b00;
+/*==================
+      MOBILE
+===================*/
+
+@media(max-width:768px){
+
+.logo span{
+    font-size:18px;
 }
 
+.logo img{
+    width:38px;
+}
+
+.menu-btn{
+    display:block;
+    z-index:1001;
+}
+
+.nav-links{
+
+    position:fixed;
+
+    top:0;
+    right:-100%;
+
+    width:270px;
+    height:100vh;
+
+    background:#111;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    gap:35px;
+
+    transition:.45s;
+
+}
+
+.nav-links.active{
+    right:0;
+}
+
+.nav-links a{
+    font-size:22px;
+}
+
+}
 /* ================= LOADER ================= */
 
 #loader{
@@ -936,18 +930,24 @@ height:40px;
 </div>
 
 <nav class="navbar">
+
     <div class="logo">
-        <img src="logo.png" loading="lazy" alt="Logo">
+        <img src="logo.png" alt="Logo">
         <span>SND Fast Food Center</span>
     </div>
 
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#location">Location</a></li>
+    <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#">🏠 Home</a></li>
+        <li><a href="#menu">🍽 Menu</a></li>
+        <li><a href="#gallery">🖼 Gallery</a></li>
+        <li><a href="#contact">📞 Contact</a></li>
+        <li><a href="#location">📍 Location</a></li>
     </ul>
+
 </nav>
 
 <header>
@@ -1242,7 +1242,32 @@ window.addEventListener("scroll", function () {
 
 });
 
+const menuBtn=document.querySelector(".menu-btn");
+const navLinks=document.querySelector(".nav-links");
+const icon=document.querySelector(".menu-btn i");
 
+menuBtn.onclick=function(){
+
+    navLinks.classList.toggle("active");
+
+    if(navLinks.classList.contains("active")){
+        icon.classList.replace("fa-bars","fa-times");
+    }else{
+        icon.classList.replace("fa-times","fa-bars");
+    }
+
+}
+
+document.querySelectorAll(".nav-links a").forEach(link=>{
+
+    link.onclick=function(){
+
+        navLinks.classList.remove("active");
+        icon.classList.replace("fa-times","fa-bars");
+
+    }
+
+});
 </script>
 </body>
 </html>
