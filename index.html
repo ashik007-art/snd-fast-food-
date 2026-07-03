@@ -203,24 +203,35 @@ margin-top:40px;
     box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
-/* ---------- Mobile Responsive ---------- */
-@media screen and (max-width:768px){
+@media (max-width:768px){
 
 header{
-    height:70vh;
-    padding-top:80px;
-    padding-left:20px;
-    padding-right:20px;
+    height:100svh;          /* Better than 100vh on phones */
+    min-height:650px;
+    padding:80px 20px 20px; /* top right/left bottom */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-size:cover;
+    background-position:center;
+    animation:none;
+}
+
+.hero-content{
+    padding-top:0;
 }
 
 header h1{
-    font-size:38px;
+    font-size:46px;
+    line-height:1.15;
 }
 
 header p{
-    font-size:18px;
+    font-size:22px;
+    margin:15px 0 25px;
 }
 
+}
 .btn{
     padding:12px 25px;
     font-size:16px;
@@ -494,7 +505,7 @@ overflow-x:hidden;
 
 /* Hero Background Zoom */
 header{
-animation:bgZoom 12s infinite alternate;
+animation:nbgZoom 12s infinite alternate;
 }
 
 @keyframes bgZoom{
@@ -506,8 +517,7 @@ background-size:110%;
 }
 }
 .hero-content{
-    padding-top:60px;
-    text-align:center;
+    padding-top:0;
 }
 
 /* Text Glow */
@@ -696,7 +706,7 @@ transform:translateX(-1560px);
 }
 
 .menu-btn{
-    display:none;
+    display:block;
     color:#fff;
     font-size:30px;
     cursor:pointer;
@@ -717,12 +727,17 @@ transform:translateX(-1560px);
 
 }
 
-.logo img{
-    width:42px;
+.logo{
+    gap:8px;
 }
 
 .logo span{
-    font-size:17px;
+    font-size:15px;
+    white-space:nowrap;
+}
+
+.logo img{
+    width:38px;
 }
 
 .menu-btn{
